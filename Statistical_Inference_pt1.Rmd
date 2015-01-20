@@ -1,5 +1,6 @@
 ---
 title: "Statistical_Inference_part1"
+
 author: "Damien Edwards"
 date: "January 19, 2015"
 output: pdf_document
