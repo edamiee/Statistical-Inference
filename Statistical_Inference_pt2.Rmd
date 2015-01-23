@@ -4,17 +4,34 @@ author: "Damien Edwards"
 date: "January 22, 2015"
 output: pdf_document
 ---
-
 This is an analysis of the ToothGrowth data in the R datasets package. The analysis will provide a basic summary of the data and use confidence intervals and/or hypothesis tests to compare tooth growth by supp and dose.
-
-## Summary of ToothGrowth dataset
-
+## Load ToothGrowth data
 ```{r}
+library(datasets)
+data(ToothGrowth)
+str(ToothGrowth)
+```
+## Summary of ToothGrowth dataset
+```{r}
+ToothGrowth$dose <- as.factor(ToothGrowth$dose)
 summary(ToothGrowth)
+table(ToothGrowth$supp, ToothGrowth$dose)
 ```
 
-## Histogram of ToothGrowth Dose
+## Boxplot of ToothGrowth Dose Summary
 ```{r, echo=FALSE}
-simulate_mean<- mean(ToothGrowth$dose)
-hist(simulate_mean, col = "red", main="Histogram of Tooth Growth dose")
+library(ggplot2)
+data(ToothGrowth)
+df<- data.frame(ToothGrowth)
+ggplot(df,aes(x=factor(dose), y=len, fill=supp)) +
+  geom_boxplot() +
+  theme(legend.position=c(1,0), legend.justification=c(1,0))+ 
+  ggtitle("Tooth Growth in relation to dose by supp")
+
+
+
+
+
+
+
 ```
