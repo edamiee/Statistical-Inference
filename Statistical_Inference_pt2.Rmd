@@ -1,5 +1,5 @@
 ---
-title: "Statistical Inference Project Part 1"
+title: "Statistical Inference Project Part 2"
 author: "Damien Edwards"
 date: "January 22, 2015"
 output: pdf_document
