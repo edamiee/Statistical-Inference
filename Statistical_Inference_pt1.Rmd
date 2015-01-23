@@ -1,23 +1,86 @@
 ---
-title: "Statistical_Inference_part1"
+title: "Statistical Inference Project Part 1"
 
 author: "Damien Edwards"
 date: "January 19, 2015"
 output: pdf_document
 ---
+This project will investigate the exponential distribution in R and compare it with the Central Limit Theorem. The exponential distribution function is rexp(n,lambda) and lambda is the rate parameter.The mean of exponential distribution is 1/lambda and the standard deviation is also       1/lambda. Set lambda = 0.2 for all of the simulations.
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+The simulation shown below in R used to calculate the mean:
+```{r}
+lambda = 0.2
+n = 40
+nsims = 1000
+set.seed(240)
+## Theoretical values
+theo_mean <- 1/lambda
+theo_sigma <- 1/lambda /sqrt(n)
+```
 
 ```{r}
-summary(cars)
+simulate_matrix <- matrix(rexp(nsims * n, rate=lambda), nsims, n)
+simulate_mean <- rowMeans(simulate_matrix)
 ```
 
-You can also embed plots, for example:
+
+The simulation matrix data is shown below for expoloration
 
 ```{r, echo=FALSE}
-plot(cars)
+hist(simulate_mean, col = "blue", main="Histogram of exponential distribution")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+##Comparison of Sample Mean and Theoretical Mean
+```{r echo=TRUE}
+compare_mean<-mean(simulate_mean)
+theo_mean <- 1/lambda
+
+```
+```{r echo=TRUE}
+## Mean value to compare
+compare_mean
+## Theoretical mean value
+theo_mean
+```
+The distribution based on the simulations is 5.026972 and the theoretical mean value is 5. The means are close to the same center of distribution.
+
+
+## Comparison of Variance for the sample data and Theoretical variance
+```{r echo=TRUE}
+actual_var <- var(simulate_mean)
+theo_var <- (1/lambda)^2/n
+## Actual variance
+actual_var
+
+## Theoretical variance
+theo_var
+```
+The actual variance value is .599 and the theoretical variance is .625. The values are close.
+
+## The distribution is approximately normal
+The histogram plot of the means of the 1000 simulations of rexp(n, lambda) shown below.
+
+```{r, echo=FALSE}
+library(ggplot2)
+df <- data.frame(simulate_mean);
+plot_1 <- ggplot(df, aes(x =simulate_mean))
+plot_1 <- plot_1 + geom_histogram(aes(y=..density..), colour="black",
+fill = "green")
+plot_1 + geom_density(colour="blue", size=1)+  xlab("means of observation");
+```
+##
+The variance and mean of the sample data are similar and resemble a normal distribution. Below is the confidence intervals calculated:
+```{r, echo=TRUE}
+actual_interval <- round (mean(simulate_mean) + c(-1,1)*1.96*sd(simulate_mean)/sqrt(n),3)
+theory_interval <- theo_mean + c(-1,1)*1.96*sqrt(theo_var)/sqrt(n);
+
+##Actual confidence interval
+actual_interval
+## Theoretical confidence interval
+theory_interval
+```
+Actual 95% confidence interval [4.787, 5.267]. Theoretical 95% confidence interval [4.755, 5.245]
+This shows the distribution is approximately normal.
+
+
+
