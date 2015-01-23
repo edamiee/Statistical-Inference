@@ -1,0 +1,20 @@
+---
+title: "Statistical Inference Project Part 1"
+author: "Damien Edwards"
+date: "January 22, 2015"
+output: pdf_document
+---
+
+This is an analysis of the ToothGrowth data in the R datasets package. The analysis will provide a basic summary of the data and use confidence intervals and/or hypothesis tests to compare tooth growth by supp and dose.
+
+## Summary of ToothGrowth dataset
+
+```{r}
+summary(ToothGrowth)
+```
+
+## Histogram of ToothGrowth Dose
+```{r, echo=FALSE}
+simulate_mean<- mean(ToothGrowth$dose)
+hist(simulate_mean, col = "red", main="Histogram of Tooth Growth dose")
+```
