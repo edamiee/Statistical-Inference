@@ -57,7 +57,7 @@ We will compare the dose effect:
 ```{r}
  t.test(len~dose, ToothGrowth, dose %in% c(2.0,1.0), paired = F, var.equal = T, alternative ="two.sided")
 ```
-The increase of of dose level has a large impact on tooth growth.Orange juice and vitamin C have obvious different impact on tooth growth. The OJ mean 20.66333 is narrowly inside of our 95% confidence interval [16.96333, 20.66333]. We can reject the hypothesis H0.
+The increase of of dose level has a large impact on tooth growth.Orange juice and vitamin C have obvious different impact on tooth growth. The OJ mean  is narrowly inside of our 95% confidence interval [-8.994387,-3.735613]. We can reject the hypothesis H0.
  
  
  
